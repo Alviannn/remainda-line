@@ -19,7 +19,9 @@ export class HelpCommand extends Command {
                 `${PREFIX} add 30-06-2021 21:00 play VALORANT with friends`,
                 `${PREFIX} add 29-06-2021 07:00 Have meeting`,
                 '',
-                `NOTE: The timezone is on ${CURRENT_TIMEZONE}`,
+                'NOTE:',
+                `The timezone is on ${CURRENT_TIMEZONE}`,
+                'And you can also use "remainda info" to view the bot info :)'
             ].join('\n')
         });
     }

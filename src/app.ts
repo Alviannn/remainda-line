@@ -52,6 +52,7 @@ app.listen(port, async () => {
     console.log(`Bot is live at port ${port}`);
 
     handlers.registerCommandEvent(client);
+
     handlers.registerCommand(new InfoCommand('info', ['i', 'information', '?'], client));
     handlers.registerCommand(new HelpCommand('help', ['how'], client));
     handlers.registerCommand(new AddCommand('add', ['remind', 'alert', 'set'], client));

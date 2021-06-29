@@ -1,8 +1,8 @@
 import * as line from '@line/bot-sdk';
 import { Client, WebhookEvent } from '@line/bot-sdk';
-import { BotEvent, Command } from './types';
 import { DateTime } from 'luxon';
 import { ReminderDB } from './db';
+import { BotEvent, Command } from './types';
 
 const events: BotEvent[] = [];
 const commands: Command[] = [];
@@ -31,19 +31,24 @@ class CommandEvent extends BotEvent {
         const args = text.split(' ');
         const prefix = args.shift()!.toLowerCase();
 
-        if (!args.length || prefix !== PREFIX) {
+        if (prefix !== PREFIX) {
             return;
         }
 
-        const subcmd = args.shift()!.toLowerCase();
-        const currcmd = commands.find((cmd) => {
-            if (cmd.name === subcmd || cmd.aliases.includes(subcmd)) {
-                return cmd;
-            }
-        });
+        if (!args.length) {
+            const helpcmd = commands.find((cmd) => cmd.name === 'help')!;
+            await helpcmd.execute(event, []);
+        } else {
+            const subcmd = args.shift()!.toLowerCase();
+            const currcmd = commands.find((cmd) => {
+                if (cmd.name === subcmd || cmd.aliases.includes(subcmd)) {
+                    return cmd;
+                }
+            });
 
-        if (currcmd) {
-            await currcmd.execute(event, args);
+            if (currcmd) {
+                await currcmd.execute(event, args);
+            }
         }
     }
 
