@@ -1,4 +1,5 @@
 import { MessageEvent } from "@line/bot-sdk";
+import assert from 'assert';
 import { DATE_FORMAT, db, parseTime, PREFIX, asiaTime } from '../utils/handlers';
 import { Command } from "../utils/types";
 
@@ -15,19 +16,18 @@ export class AddCommand extends Command {
 
         const { source } = event;
 
-        const dueDate = args.splice(0, 2).join(' ');
+        const inputDueDate = args.splice(0, 2).join(' ');
         const messages = args.join(' ');
 
         try {
-            const time = parseTime(dueDate);
+            const time = parseTime(inputDueDate);
 
-            if (time.toMillis() - asiaTime().toMillis() < 0) {
-                throw Error();
-            }
+            assert(time.toFormat(DATE_FORMAT) === inputDueDate);
+            assert(time.toMillis() - asiaTime().toMillis() > 0);
 
             db.addReminder({
                 _id: undefined,
-                dueDate,
+                dueDate: inputDueDate,
                 message: messages,
                 source: {
                     type: source.type,
