@@ -26,7 +26,6 @@ export class AddCommand extends Command {
             assert(time.toMillis() - asiaTime().toMillis() > 0);
 
             db.addReminder({
-                _id: undefined,
                 dueDate: inputDueDate,
                 message: messages,
                 source: {

@@ -49,7 +49,6 @@ export abstract class Command {
 }
 
 export type ReminderData = {
-    _id: string | undefined,
     dueDate: string,
     source: {
         type: 'user' | 'group' | 'room',

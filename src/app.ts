@@ -5,6 +5,7 @@ import express from 'express';
 import { AddCommand } from './commands/add';
 import { HelpCommand } from './commands/help';
 import { InfoCommand } from './commands/info';
+import { LeaveEvent } from './events/leave';
 import * as handlers from './utils/handlers';
 
 dotenv.config();
@@ -52,6 +53,7 @@ app.listen(port, async () => {
     console.log(`Bot is live at port ${port}`);
 
     handlers.registerCommandEvent(client);
+    handlers.registerEvent(new LeaveEvent(client, 'leave'));
 
     handlers.registerCommand(new InfoCommand('info', ['i', 'information', '?'], client));
     handlers.registerCommand(new HelpCommand('help', ['how'], client));
@@ -78,7 +80,7 @@ app.listen(port, async () => {
                 ].join('\n')
             });
 
-            await db.docs!.deleteOne({ _id: { $eq: reminder._id } });
+            await db.docs!.deleteOne({ '_id': (reminder as never)['_id'] });
         }
     }, 30_000);
 });

@@ -6,7 +6,7 @@ export class ReminderDB {
 
     public client: MongoClient | undefined;
     public db: Db | undefined;
-    public docs: Collection<ReminderData> | undefined;
+    public docs: Collection | undefined;
 
     async connectToDB(): Promise<void> {
         this.client = await MongoClient.connect(process.env.MONGODB_URL!, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -20,7 +20,7 @@ export class ReminderDB {
 
     async getAllDueReminder(): Promise<ReminderData[]> {
         const time = asiaTime();
-        const res = await this.docs!.find({ dueDate: { $eq: time.toFormat(DATE_FORMAT) } });
+        const res = await this.docs!.find({ 'dueDate': time.toFormat(DATE_FORMAT) });
 
         return res.toArray();
     }

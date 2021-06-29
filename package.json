@@ -1,6 +1,6 @@
 {
     "name": "remainda-line",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "A LINE bot to remind us",
     "main": "dist/app.js",
     "scripts": {
