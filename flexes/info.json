@@ -1,0 +1,91 @@
+{
+    "type": "bubble",
+    "size": "mega",
+    "hero": {
+        "type": "image",
+        "size": "full",
+        "aspectMode": "cover",
+        "aspectRatio": "20:13",
+        "url": "https://i.imgur.com/6tVeL1N.png"
+    },
+    "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+            {
+                "type": "text",
+                "text": "INFORMATION",
+                "weight": "bold",
+                "size": "xl",
+                "align": "center"
+            },
+            {
+                "type": "text",
+                "text": "Hello there user!",
+                "margin": "20px",
+                "wrap": true,
+                "size": "sm"
+            },
+            {
+                "type": "text",
+                "margin": "20px",
+                "wrap": true,
+                "size": "sm",
+                "text": "The bot is open source and available on GitHub"
+            },
+            {
+                "type": "text",
+                "text": "If you have any suggestions for the bot feel free to let me know!",
+                "margin": "20px",
+                "wrap": true,
+                "size": "sm"
+            },
+            {
+                "type": "text",
+                "text": "And if you're looking on how to use commands, use \"remainda help\"",
+                "margin": "20px",
+                "wrap": true,
+                "size": "sm"
+            }
+        ]
+    },
+    "footer": {
+        "type": "box",
+        "layout": "horizontal",
+        "spacing": "sm",
+        "contents": [
+            {
+                "type": "image",
+                "url": "https://pngimg.com/uploads/github/github_PNG40.png",
+                "size": "50px",
+                "margin": "0px",
+                "offsetStart": "20px"
+            },
+            {
+                "type": "button",
+                "margin": "0px",
+                "offsetEnd": "40px",
+                "action": {
+                    "type": "uri",
+                    "label": "Source Code",
+                    "uri": "https://github.com/Alviannn/remainda-line"
+                }
+            }
+        ],
+        "flex": 0,
+        "action": {
+            "type": "uri",
+            "uri": "https://github.com/Alviannn/remainda-line"
+        },
+        "cornerRadius": "30px",
+        "justifyContent": "center"
+    },
+    "styles": {
+        "hero": {
+            "backgroundColor": "#2D4B87"
+        },
+        "body": {
+            "separator": false
+        }
+    }
+}
