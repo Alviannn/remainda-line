@@ -1,5 +1,5 @@
 # Remainda BOT
-Just a simple bot for reminder use.<br>
+Just a simple LINE bot for reminder use.<br>
 
 ## Previews
 
