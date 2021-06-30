@@ -1,6 +1,7 @@
 import { MessageEvent } from "@line/bot-sdk";
 import assert from 'assert';
-import { DATE_FORMAT, db, parseTime, PREFIX, asiaTime } from '../utils/handlers';
+import { Duration } from "luxon";
+import { asiaTime, DATE_FORMAT, db, parseTime, PREFIX } from '../utils/handlers';
 import { Command } from "../utils/types";
 
 export class AddCommand extends Command {
@@ -21,23 +22,31 @@ export class AddCommand extends Command {
 
         try {
             const time = parseTime(inputDueDate);
+            const diff = time.toMillis() - asiaTime().toMillis();
 
             assert(time.toFormat(DATE_FORMAT) === inputDueDate);
-            assert(time.toMillis() - asiaTime().toMillis() > 0);
+            assert(diff > 0);
 
-            db.addReminder({
-                dueDate: inputDueDate,
-                message: messages,
-                source: {
-                    type: source.type,
-                    id: (source.type === 'user' ? source.userId : (source.type === 'group' ? source.groupId : source.roomId))
-                }
-            });
+            if (Duration.fromMillis(diff).as('days') > 30) {
+                this.client.replyMessage(event.replyToken, {
+                    type: 'text',
+                    text: 'Reminder cannot be set greater than 30 days from today!'
+                });
+            } else {
+                db.addReminder({
+                    dueDate: inputDueDate,
+                    message: messages,
+                    source: {
+                        type: source.type,
+                        id: (source.type === 'user' ? source.userId : (source.type === 'group' ? source.groupId : source.roomId))
+                    }
+                });
 
-            this.client.replyMessage(event.replyToken, {
-                type: 'text',
-                text: 'Added your reminder to the bot! I will remind you when the time comes!'
-            });
+                this.client.replyMessage(event.replyToken, {
+                    type: 'text',
+                    text: 'Added your reminder to the bot! I will remind you when the time comes!'
+                });
+            }
         } catch (err) {
             this.client.replyMessage(event.replyToken, {
                 type: 'text',
