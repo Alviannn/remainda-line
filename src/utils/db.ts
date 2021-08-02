@@ -9,7 +9,7 @@ export class ReminderDB {
     public docs: Collection | undefined;
 
     async connectToDB(): Promise<void> {
-        this.client = await MongoClient.connect(process.env.MONGODB_URL!, { useNewUrlParser: true, useUnifiedTopology: true });
+        this.client = await MongoClient.connect(process.env.MONGODB_URL!);
         this.db = this.client.db();
         this.docs = this.db.collection('docs');
     }
