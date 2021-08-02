@@ -27,10 +27,11 @@ export class AddCommand extends Command {
             assert(time.toFormat(DATE_FORMAT) === inputDueDate);
             assert(diff > 0);
 
-            if (Duration.fromMillis(diff).as('days') > 30) {
+            const timeLimitDays = 60;
+            if (Duration.fromMillis(diff).as('days') > timeLimitDays) {
                 this.client.replyMessage(event.replyToken, {
                     type: 'text',
-                    text: 'Reminder cannot be set greater than 30 days from today!'
+                    text: `Reminder cannot be set greater than ${timeLimitDays} days from today!`
                 });
             } else {
                 db.addReminder({
